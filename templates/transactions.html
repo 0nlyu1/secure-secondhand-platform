@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}송금 내역 - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>송금 내역</h2>
+
+<p>
+    현재 보유 포인트:
+    <strong>{{ current_user.points }}점</strong>
+</p>
+
+<p>
+    <a href="{{ url_for('transfer') }}">포인트 송금</a>
+</p>
+
+{% if transaction_rows %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>보낸 사용자</th>
+                <th>받은 사용자</th>
+                <th>포인트</th>
+                <th>일시</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in transaction_rows %}
+                <tr>
+                    <td>
+                        {% if row.transaction.sender_id == current_user.id %}
+                            출금
+                        {% else %}
+                            입금
+                        {% endif %}
+                    </td>
+
+                    <td>{{ row.sender_name }}</td>
+                    <td>{{ row.receiver_name }}</td>
+                    <td>{{ row.transaction.amount }}점</td>
+
+                    <td>
+                        {{ row.transaction.created_at.strftime(
+                            "%Y-%m-%d %H:%M"
+                        ) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>송금 내역이 없습니다.</p>
+{% endif %}
+{% endblock %}

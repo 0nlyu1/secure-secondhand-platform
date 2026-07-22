@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}신고 - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>신고하기</h2>
+
+{% if target_type == "user" %}
+    <p>
+        신고 대상 사용자:
+        <strong>{{ target.username }}</strong>
+    </p>
+
+    <form
+        method="post"
+        action="{{ url_for('report_user', user_id=target.id) }}"
+    >
+{% else %}
+    <p>
+        신고 대상 상품:
+        <strong>{{ target.title }}</strong>
+    </p>
+
+    <form
+        method="post"
+        action="{{ url_for('report_product', product_id=target.id) }}"
+    >
+{% endif %}
+        <div>
+            <label for="reason">신고 사유</label>
+            <br>
+            <textarea
+                id="reason"
+                name="reason"
+                rows="7"
+                cols="60"
+                minlength="5"
+                maxlength="500"
+                required
+            >{{ reason|default('') }}</textarea>
+        </div>
+
+        <button type="submit">신고 접수</button>
+    </form>
+{% endblock %}

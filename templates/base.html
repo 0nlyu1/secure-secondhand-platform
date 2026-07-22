@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tiny Market{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <a href="{{ url_for('index') }}">Tiny Market</a>
+        </h1>
+
+        <nav>
+            <a href="{{ url_for('index') }}">홈</a>
+
+            {% if session.get("user_id") %}
+                <a href="{{ url_for('mypage') }}">마이페이지</a>
+                <a href="{{ url_for('create_product') }}">상품 등록</a>
+                <a href="{{ url_for('messages') }}">메시지</a>
+                <a href="{{ url_for('transfer') }}">포인트 송금</a>
+                <a href="{{ url_for('transactions') }}">송금 내역</a>
+                {% if logged_in_user and logged_in_user.is_admin %}
+                    <a href="{{ url_for('admin_dashboard') }}">관리자</a>
+                {% endif %}
+
+                <form
+                    method="post"
+                    action="{{ url_for('logout') }}"
+                    style="display: inline;"
+                >
+                    <button type="submit">로그아웃</button>
+                </form>
+
+            {% else %}
+                <a href="{{ url_for('login') }}">로그인</a>
+                <a href="{{ url_for('register') }}">회원가입</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <section>
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

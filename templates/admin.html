@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}관리자 - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>관리자 대시보드</h2>
+
+<section>
+    <h3>사용자 관리</h3>
+
+    {% if users %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>포인트</th>
+                    <th>관리자</th>
+                    <th>정지 상태</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.points }}</td>
+                        <td>{{ "예" if user.is_admin else "아니오" }}</td>
+                        <td>{{ "정지" if user.is_suspended else "정상" }}</td>
+                        <td>
+                            {% if not user.is_admin %}
+                                <form
+                                    method="post"
+                                    action="{{ url_for(
+                                        'toggle_user_suspend',
+                                        user_id=user.id
+                                    ) }}"
+                                >
+                                    <button type="submit">
+                                        {% if user.is_suspended %}
+                                            정지 해제
+                                        {% else %}
+                                            계정 정지
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            {% else %}
+                                관리자 계정
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</section>
+
+<hr>
+
+<section>
+    <h3>상품 관리</h3>
+
+    {% if products %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>판매자 ID</th>
+                    <th>차단 상태</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.title }}</td>
+                        <td>{{ "{:,}".format(product.price) }}원</td>
+                        <td>{{ product.seller_id }}</td>
+                        <td>{{ "차단" if product.is_blocked else "정상" }}</td>
+                        <td>
+                            <form
+                                method="post"
+                                action="{{ url_for(
+                                    'toggle_product_block',
+                                    product_id=product.id
+                                ) }}"
+                            >
+                                <button type="submit">
+                                    {% if product.is_blocked %}
+                                        차단 해제
+                                    {% else %}
+                                        상품 차단
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>등록된 상품이 없습니다.</p>
+    {% endif %}
+</section>
+
+<hr>
+
+<section>
+    <h3>신고 관리</h3>
+
+    {% if report_rows %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>신고자</th>
+                    <th>대상 유형</th>
+                    <th>신고 대상</th>
+                    <th>신고 사유</th>
+                    <th>상태</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in report_rows %}
+                    <tr>
+                        <td>{{ row.reporter_name }}</td>
+                        <td>{{ row.report.target_type }}</td>
+                        <td>{{ row.target_name }}</td>
+                        <td>{{ row.report.reason }}</td>
+                        <td>{{ row.report.status }}</td>
+                        <td>
+                            {% if row.report.status != "resolved" %}
+                                <form
+                                    method="post"
+                                    action="{{ url_for(
+                                        'resolve_report',
+                                        report_id=row.report.id
+                                    ) }}"
+                                >
+                                    <button type="submit">
+                                        처리 완료
+                                    </button>
+                                </form>
+                            {% else %}
+                                처리됨
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>접수된 신고가 없습니다.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.title }} - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>{{ product.title }}</h2>
+
+<p>
+    <strong>가격:</strong>
+    {{ "{:,}".format(product.price) }}원
+</p>
+
+<p>
+    <strong>판매자:</strong>
+    {% if seller %}
+        {{ seller.username }}
+    {% else %}
+        알 수 없는 사용자
+    {% endif %}
+</p>
+
+<p>
+    <strong>등록일:</strong>
+    {{ product.created_at.strftime("%Y-%m-%d %H:%M") }}
+</p>
+
+<h3>상품 설명</h3>
+
+<p>{{ product.description }}</p>
+
+{% if session.get("user_id")
+      and session.get("user_id") != product.seller_id %}
+    <p>
+        <a href="{{ url_for('report_product', product_id=product.id) }}">
+            이 상품 신고
+        </a>
+    </p>
+{% endif %}
+
+{% if session.get("user_id") == product.seller_id %}
+    <p>
+        <a href="{{ url_for('edit_product', product_id=product.id) }}">
+            상품 수정
+        </a>
+    </p>
+
+    <form
+        method="post"
+        action="{{ url_for('delete_product', product_id=product.id) }}"
+        onsubmit="return confirm('정말 삭제하시겠습니까?');"
+    >
+        <button type="submit">상품 삭제</button>
+    </form>
+{% endif %}
+
+<p>
+    <a href="{{ url_for('index') }}">상품 목록으로</a>
+</p>
+{% endblock %}

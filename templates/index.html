@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}홈 - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>Tiny Second-hand Shopping Platform</h2>
+
+<p>보안을 고려하여 개발하는 소규모 중고거래 플랫폼입니다.</p>
+
+{% if current_user %}
+    <p>
+        <strong>{{ current_user.username }}</strong>님, 환영합니다.
+        보유 포인트: {{ current_user.points }}점
+    </p>
+
+    <p>
+        <a href="{{ url_for('create_product') }}">새 상품 등록</a>
+    </p>
+{% else %}
+    <p>
+        서비스를 이용하려면
+        <a href="{{ url_for('login') }}">로그인</a>하거나
+        <a href="{{ url_for('register') }}">회원가입</a>해주세요.
+    </p>
+{% endif %}
+
+<hr>
+
+<h2>상품 목록</h2>
+
+<form method="get" action="{{ url_for('index') }}">
+    <label for="q">상품 검색</label>
+    <input
+        type="search"
+        id="q"
+        name="q"
+        value="{{ search_query }}"
+        maxlength="100"
+    >
+    <button type="submit">검색</button>
+</form>
+
+{% if search_query %}
+    <p>
+        검색어: <strong>{{ search_query }}</strong>
+        <a href="{{ url_for('index') }}">검색 초기화</a>
+    </p>
+{% endif %}
+
+{% if products %}
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                    {{ product.title }}
+                </a>
+                — {{ "{:,}".format(product.price) }}원
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>등록된 상품이 없습니다.</p>
+{% endif %}
+{% endblock %}

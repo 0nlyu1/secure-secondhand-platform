@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}마이페이지 - Tiny Market{% endblock %}
+
+{% block content %}
+<h2>마이페이지</h2>
+
+<p>
+    <strong>아이디:</strong>
+    {{ user.username }}
+</p>
+
+<p>
+    <strong>보유 포인트:</strong>
+    {{ user.points }}점
+</p>
+
+<p>
+    <strong>가입일:</strong>
+    {{ user.created_at.strftime("%Y-%m-%d %H:%M") }}
+</p>
+
+<form method="post" action="{{ url_for('mypage') }}">
+    <div>
+        <label for="bio">소개글</label>
+        <br>
+        <textarea
+            id="bio"
+            name="bio"
+            rows="5"
+            cols="50"
+            maxlength="300"
+        >{{ user.bio }}</textarea>
+    </div>
+
+    <button type="submit">소개글 수정</button>
+</form>
+{% endblock %}
