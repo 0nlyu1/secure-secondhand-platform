@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="tiny-second-hand-shopping-platform-개발-보고서">Tiny Second-hand Shopping Platform 개발 보고서</h1>
+<h1 id="1-프로젝트-개요">1. 프로젝트 개요</h1>
+<h2 id="11-프로젝트명">1.1 프로젝트명</h2>
+<p>Tiny Second-hand Shopping Platform</p>
+<h2 id="12-프로젝트-목적">1.2 프로젝트 목적</h2>
+<p>본 프로젝트는 Flask와 SQLite를 이용하여 보안을 고려한 소규모 중고거래 플랫폼을 구현하는 것을 목표로 한다.</p>
+<p>사용자는 회원가입 및 로그인 후 중고 상품을 등록하고 조회할 수 있으며, 다른 사용자와 1대1 메시지를 주고받을 수 있다. 또한 부적절한 사용자나 상품을 신고하고, 플랫폼 내부의 가상 포인트를 다른 사용자에게 송금할 수 있다.</p>
+<p>관리자는 별도의 권한을 통해 사용자 정지, 상품 차단, 신고 처리 등의 관리 기능을 수행할 수 있다.</p>
+<p>기능 구현 과정에서는 단순히 서비스가 작동하도록 만드는 데 그치지 않고, 다음과 같은 기본적인 보안 요구사항을 함께 고려하였다.</p>
+<ul>
+<li>비밀번호 해시 저장</li>
+<li>서버 측 입력값 검증</li>
+<li>세션 기반 사용자 인증</li>
+<li>사용자 및 관리자 권한 검증</li>
+<li>SQL Injection 방지</li>
+<li>저장형 XSS 방지</li>
+<li>메시지 발신자 위조 방지</li>
+<li>포인트 송금 데이터 무결성 유지</li>
+<li>민감한 데이터베이스 파일의 공개 저장소 업로드 방지</li>
+</ul>
+<h2 id="13-주요-구현-기능">1.3 주요 구현 기능</h2>
+<p>본 프로젝트에서 구현한 주요 기능은 다음과 같다.</p>
+<h3 id="사용자-기능">사용자 기능</h3>
+<ul>
+<li>회원가입</li>
+<li>로그인 및 로그아웃</li>
+<li>마이페이지 조회</li>
+<li>소개글 수정</li>
+<li>상품 등록</li>
+<li>상품 목록 및 상세 조회</li>
+<li>상품 수정 및 삭제</li>
+<li>상품 검색</li>
+<li>사용자 간 1대1 메시지</li>
+<li>사용자 신고</li>
+<li>상품 신고</li>
+<li>가상 포인트 송금</li>
+<li>송금 내역 조회</li>
+</ul>
+<h3 id="관리자-기능">관리자 기능</h3>
+<ul>
+<li>전체 사용자 조회</li>
+<li>사용자 계정 정지 및 해제</li>
+<li>전체 상품 조회</li>
+<li>상품 차단 및 해제</li>
+<li>신고 목록 조회</li>
+<li>신고 처리 완료</li>
+</ul>
+<h2 id="14-프로젝트-수행-범위">1.4 프로젝트 수행 범위</h2>
+<p>본 프로젝트는 로컬 개발환경에서 실행되는 교육용 웹 애플리케이션으로 구현하였다.</p>
+<p>실제 결제나 현금 거래 기능은 포함하지 않았으며, 포인트 송금 기능은 데이터베이스 트랜잭션과 입력값 검증을 실습하기 위한 가상 포인트 기능이다.</p>
+<p>또한 실제 운영 서비스 수준의 모든 보안 기능을 완성하는 것보다는, 웹 애플리케이션에서 자주 발생할 수 있는 기본적인 취약점을 이해하고 이를 코드에 반영하는 데 중점을 두었다.</p>
+<hr>
+<h1 id="2-개발환경-구축">2. 개발환경 구축</h1>
+<h2 id="21-개발환경">2.1 개발환경</h2>
+<p>프로젝트 개발환경은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>운영체제</td>
+<td>Ubuntu 24.04 on WSL</td>
+</tr>
+<tr>
+<td>개발 도구</td>
+<td>Visual Studio Code</td>
+</tr>
+<tr>
+<td>개발 언어</td>
+<td>Python 3.12</td>
+</tr>
+<tr>
+<td>웹 프레임워크</td>
+<td>Flask</td>
+</tr>
+<tr>
+<td>데이터베이스</td>
+<td>SQLite</td>
+</tr>
+<tr>
+<td>ORM</td>
+<td>Flask-SQLAlchemy</td>
+</tr>
+<tr>
+<td>템플릿 엔진</td>
+<td>Jinja2</td>
+</tr>
+<tr>
+<td>비밀번호 처리</td>
+<td>Werkzeug Security</td>
+</tr>
+<tr>
+<td>버전 관리</td>
+<td>Git</td>
+</tr>
+<tr>
+<td>원격 저장소</td>
+<td>GitHub</td>
+</tr>
+</tbody>
+</table>
+<h2 id="22-가상환경-구성">2.2 가상환경 구성</h2>
+<p>프로젝트별 Python 패키지를 독립적으로 관리하기 위해 가상환경을 구성하였다.</p>
+<p>가상환경 생성 과정에서 <code>python3 -m venv</code> 명령이 정상적으로 실행되지 않는 문제가 발생하였다. 원인은 Ubuntu 환경에 <code>python3.12-venv</code> 패키지가 설치되어 있지 않았기 때문이었다.</p>
+<p>다음 명령을 실행하여 필요한 패키지를 설치하였다.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install python3.12-venv
+</div></code></pre>
+<p>이후 다음 명령으로 가상환경을 생성하고 활성화하였다.</p>
+<pre class="hljs"><code><div>python3 -m venv .venv
+<span class="hljs-built_in">source</span> .venv/bin/activate
+</div></code></pre>
+<p>가상환경을 사용함으로써 프로젝트에서 사용하는 Flask 및 SQLAlchemy 패키지를 시스템 Python 환경과 분리하여 관리할 수 있었다.</p>
+<h2 id="23-필수-패키지-설치">2.3 필수 패키지 설치</h2>
+<p>프로젝트 구현에 필요한 주요 패키지는 다음과 같다.</p>
+<ul>
+<li>Flask</li>
+<li>Flask-SQLAlchemy</li>
+<li>Werkzeug</li>
+</ul>
+<p>패키지는 <code>pip</code>를 이용하여 설치하였다.</p>
+<pre class="hljs"><code><div>pip install Flask Flask-SQLAlchemy
+</div></code></pre>
+<p>설치된 패키지와 버전은 <code>requirements.txt</code> 파일에 기록하여 다른 환경에서도 동일한 개발환경을 구성할 수 있도록 하였다.</p>
+<pre class="hljs"><code><div>pip freeze &gt; requirements.txt
+</div></code></pre>
+<h2 id="24-flask-서버-실행-확인">2.4 Flask 서버 실행 확인</h2>
+<p>기본 Flask 애플리케이션을 실행한 후 다음 주소로 접속하였다.</p>
+<pre class="hljs"><code><div>http://127.0.0.1:5000
+</div></code></pre>
+<p>브라우저에서 Tiny Second-hand Shopping Platform의 메인 화면이 정상적으로 출력되는 것을 확인하였다.</p>
+<blockquote>
+<p><img src="Flaskserver.png" alt="서버 실행 후 메인 화면"></p>
+</blockquote>
+<h2 id="25-sqlite-데이터베이스-연결">2.5 SQLite 데이터베이스 연결</h2>
+<p>Flask-SQLAlchemy를 이용하여 Flask 애플리케이션과 SQLite 데이터베이스를 연결하였다.</p>
+<p>애플리케이션 설정에는 다음과 같은 SQLite 연결 주소를 사용하였다.</p>
+<pre class="hljs"><code><div>app.config[<span class="hljs-string">&quot;SQLALCHEMY_DATABASE_URI&quot;</span>] = <span class="hljs-string">&quot;sqlite:///market.db&quot;</span>
+</div></code></pre>
+<p>데이터베이스 모델을 정의한 후 애플리케이션 실행 과정에서 테이블을 생성하였다.</p>
+<p>실행 후 <code>instance</code> 폴더 안에 <code>market.db</code> 파일이 생성된 것을 확인하였다.</p>
+<p>SQLite 데이터베이스 파일에는 사용자 정보, 상품, 메시지, 신고, 송금 기록 등의 테스트 데이터가 포함될 수 있으므로 GitHub 공개 저장소에는 업로드하지 않도록 설정하였다.</p>
+<hr>
+<h1 id="3-프로젝트-구조">3. 프로젝트 구조</h1>
+<h2 id="31-전체-구조">3.1 전체 구조</h2>
+<p>프로젝트의 주요 디렉터리와 파일 구조는 다음과 같다.</p>
+<pre class="hljs"><code><div>secure-secondhand-platform/
+├── app.py
+├── models.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+│
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── register.html
+│   ├── login.html
+│   ├── mypage.html
+│   ├── products.html
+│   ├── product_detail.html
+│   ├── product_form.html
+│   ├── messages.html
+│   ├── conversation.html
+│   ├── transfer.html
+│   ├── transactions.html
+│   ├── report_form.html
+│   └── admin/
+│
+├── static/
+│   └── style.css
+│
+├── instance/
+│   └── market.db
+│
+├── evidence/
+│   ├── sql_injection_login_blocked.png
+│   ├── sql_injection_search_blocked.png
+│   └── xss_bio_escaped.png
+│
+└── docs/
+    ├── requirements.md
+    ├── design.md
+    ├── security.md
+    ├── checklist.md
+    ├── test.md
+    ├── maintenance.md
+    └── report.md
+</div></code></pre>
+<p>실제 파일 구성은 개발 과정에서 일부 차이가 있을 수 있으나, 역할에 따라 소스코드, 템플릿, 정적 파일, 데이터베이스, 테스트 증거, 문서를 구분하여 관리하였다.</p>
+<h2 id="32-주요-파일-역할">3.2 주요 파일 역할</h2>
+<table>
+<thead>
+<tr>
+<th>파일 또는 폴더</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>app.py</code></td>
+<td>Flask 애플리케이션 실행, URL 라우팅, 입력값 검증 및 기능 처리</td>
+</tr>
+<tr>
+<td><code>models.py</code></td>
+<td>User, Product, Message, Report, Transaction 데이터베이스 모델 정의</td>
+</tr>
+<tr>
+<td><code>templates/</code></td>
+<td>Jinja2 기반 HTML 화면</td>
+</tr>
+<tr>
+<td><code>static/</code></td>
+<td>CSS 등 정적 파일</td>
+</tr>
+<tr>
+<td><code>instance/</code></td>
+<td>SQLite 데이터베이스 파일 저장</td>
+</tr>
+<tr>
+<td><code>evidence/</code></td>
+<td>SQL Injection 및 XSS 테스트 증거 화면</td>
+</tr>
+<tr>
+<td><code>docs/requirements.md</code></td>
+<td>기능 및 보안 요구사항</td>
+</tr>
+<tr>
+<td><code>docs/design.md</code></td>
+<td>사용자 역할, 데이터베이스 및 시스템 설계</td>
+</tr>
+<tr>
+<td><code>docs/security.md</code></td>
+<td>적용한 보안 기능 및 미적용 항목</td>
+</tr>
+<tr>
+<td><code>docs/checklist.md</code></td>
+<td>구현 및 보안 점검 결과</td>
+</tr>
+<tr>
+<td><code>docs/test.md</code></td>
+<td>기능 및 보안 테스트 결과</td>
+</tr>
+<tr>
+<td><code>docs/maintenance.md</code></td>
+<td>개발 중 문제와 개선 과정</td>
+</tr>
+<tr>
+<td><code>docs/report.md</code></td>
+<td>프로젝트 전체 개발 보고서</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>실행 방법과 프로젝트 소개</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>가상환경, DB, 임시 파일 등 Git 제외 설정</td>
+</tr>
+</tbody>
+</table>
+<h2 id="33-문서-분리-목적">3.3 문서 분리 목적</h2>
+<p>요구사항, 설계, 보안, 테스트, 유지보수 내용을 하나의 파일에 모두 작성하지 않고 목적에 따라 분리하였다.</p>
+<p>이를 통해 각 단계에서 작성한 내용을 독립적으로 관리할 수 있었으며, 최종 보고서에서는 여러 문서의 핵심 내용을 종합하여 프로젝트 수행 과정을 정리하였다.</p>
+<hr>
+<h1 id="4-요구사항-분석">4. 요구사항 분석</h1>
+<h2 id="41-사용자-역할-정의">4.1 사용자 역할 정의</h2>
+<p>플랫폼 사용자는 권한에 따라 다음 세 종류로 구분하였다.</p>
+<table>
+<thead>
+<tr>
+<th>사용자 구분</th>
+<th>권한</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비회원</td>
+<td>메인 화면 조회, 회원가입, 로그인</td>
+</tr>
+<tr>
+<td>일반 사용자</td>
+<td>상품 관리, 검색, 메시지, 신고, 포인트 송금</td>
+</tr>
+<tr>
+<td>관리자</td>
+<td>일반 사용자 기능과 사용자·상품·신고 관리</td>
+</tr>
+</tbody>
+</table>
+<p>비회원은 인증이 필요한 기능에 접근할 수 없으며, 로그인이 필요한 주소에 직접 접근할 경우 로그인 페이지로 이동하도록 요구사항을 정의하였다.</p>
+<h2 id="42-기능-요구사항">4.2 기능 요구사항</h2>
+<h3 id="회원가입">회원가입</h3>
+<ul>
+<li>사용자는 아이디와 비밀번호를 입력하여 회원가입할 수 있어야 한다.</li>
+<li>아이디는 중복될 수 없다.</li>
+<li>아이디와 비밀번호는 서버에서 길이와 형식을 검증해야 한다.</li>
+<li>비밀번호는 평문이 아닌 해시값으로 저장해야 한다.</li>
+<li>신규 사용자는 테스트용 기본 포인트를 지급받는다.</li>
+</ul>
+<h3 id="로그인-및-로그아웃">로그인 및 로그아웃</h3>
+<ul>
+<li>가입된 사용자는 아이디와 비밀번호로 로그인할 수 있어야 한다.</li>
+<li>로그인 성공 시 사용자 정보를 세션에 저장해야 한다.</li>
+<li>로그인 실패 시 아이디 존재 여부를 노출하지 않는 동일한 메시지를 사용해야 한다.</li>
+<li>정지된 사용자는 로그인할 수 없어야 한다.</li>
+<li>로그아웃 시 세션 정보를 삭제해야 한다.</li>
+</ul>
+<h3 id="마이페이지">마이페이지</h3>
+<ul>
+<li>로그인한 사용자는 자신의 아이디, 가입일, 포인트, 소개글을 확인할 수 있어야 한다.</li>
+<li>사용자는 자신의 소개글을 수정할 수 있어야 한다.</li>
+<li>비로그인 사용자는 마이페이지에 접근할 수 없어야 한다.</li>
+</ul>
+<h3 id="상품-기능">상품 기능</h3>
+<ul>
+<li>로그인한 사용자는 상품을 등록할 수 있어야 한다.</li>
+<li>사용자는 전체 상품 목록과 상세 정보를 조회할 수 있어야 한다.</li>
+<li>상품 등록자는 자신의 상품을 수정하거나 삭제할 수 있어야 한다.</li>
+<li>관리자는 필요한 경우 상품을 차단할 수 있어야 한다.</li>
+<li>차단된 상품은 일반 사용자에게 노출되지 않아야 한다.</li>
+</ul>
+<h3 id="상품-검색">상품 검색</h3>
+<ul>
+<li>사용자는 상품명 또는 설명을 기준으로 상품을 검색할 수 있어야 한다.</li>
+<li>검색 결과가 없는 경우 안내 메시지를 출력해야 한다.</li>
+<li>검색어를 SQL 문자열에 직접 결합하지 않아야 한다.</li>
+</ul>
+<h3 id="메시지">메시지</h3>
+<ul>
+<li>로그인한 사용자는 다른 사용자와 1대1 메시지를 주고받을 수 있어야 한다.</li>
+<li>두 사용자 사이의 메시지만 조회할 수 있어야 한다.</li>
+<li>발신자 ID는 현재 로그인 세션에서 가져와야 한다.</li>
+<li>자기 자신이나 정지된 사용자에게 메시지를 보낼 수 없어야 한다.</li>
+</ul>
+<h3 id="신고">신고</h3>
+<ul>
+<li>사용자는 부적절한 사용자나 상품을 신고할 수 있어야 한다.</li>
+<li>신고 사유를 입력해야 한다.</li>
+<li>자기 자신 또는 자신의 상품을 신고할 수 없어야 한다.</li>
+<li>동일한 대상에 대한 중복 신고를 제한해야 한다.</li>
+<li>관리자는 신고 내용을 확인하고 처리할 수 있어야 한다.</li>
+</ul>
+<h3 id="포인트-송금">포인트 송금</h3>
+<ul>
+<li>로그인한 사용자는 다른 사용자에게 가상 포인트를 송금할 수 있어야 한다.</li>
+<li>자기 자신에게는 송금할 수 없어야 한다.</li>
+<li>존재하지 않거나 정지된 사용자에게 송금할 수 없어야 한다.</li>
+<li>보유 포인트보다 큰 금액을 송금할 수 없어야 한다.</li>
+<li>송신자 차감, 수신자 증가, 거래 기록 저장이 함께 처리되어야 한다.</li>
+</ul>
+<h3 id="관리자-기능-1">관리자 기능</h3>
+<ul>
+<li>관리자는 전체 사용자와 상품을 조회할 수 있어야 한다.</li>
+<li>관리자는 일반 사용자를 정지하거나 정지를 해제할 수 있어야 한다.</li>
+<li>관리자는 상품을 차단하거나 차단을 해제할 수 있어야 한다.</li>
+<li>관리자는 신고를 처리할 수 있어야 한다.</li>
+<li>일반 사용자는 관리자 기능에 접근할 수 없어야 한다.</li>
+</ul>
+<h2 id="43-보안-요구사항">4.3 보안 요구사항</h2>
+<p>본 프로젝트의 주요 보안 요구사항은 다음과 같다.</p>
+<ul>
+<li>비밀번호를 데이터베이스에 평문으로 저장하지 않는다.</li>
+<li>모든 주요 입력값을 서버에서 검증한다.</li>
+<li>SQL 쿼리에 사용자 입력을 문자열로 직접 연결하지 않는다.</li>
+<li>로그인 여부와 권한을 서버에서 검사한다.</li>
+<li>상품 수정과 삭제 시 작성자 여부를 검사한다.</li>
+<li>관리자 기능은 관리자만 실행할 수 있어야 한다.</li>
+<li>사용자 입력을 HTML로 직접 실행하지 않는다.</li>
+<li>메시지 발신자 정보를 사용자가 임의로 지정할 수 없도록 한다.</li>
+<li>포인트 송금 과정에서 일부 작업만 반영되지 않도록 한다.</li>
+<li>데이터베이스와 비밀정보를 공개 GitHub 저장소에 업로드하지 않는다.</li>
+</ul>
+<hr>
+<h1 id="5-시스템-설계">5. 시스템 설계</h1>
+<h2 id="51-시스템-구성">5.1 시스템 구성</h2>
+<p>본 시스템은 Flask 기반의 서버 애플리케이션, Jinja2 HTML 템플릿, SQLite 데이터베이스로 구성하였다.</p>
+<p>사용자가 웹 브라우저를 통해 요청을 보내면 Flask 라우트에서 다음 작업을 수행한다.</p>
+<ol>
+<li>요청 방식과 로그인 상태를 확인한다.</li>
+<li>사용자가 입력한 값을 읽는다.</li>
+<li>입력값의 형식, 길이, 범위를 검증한다.</li>
+<li>사용자 권한 또는 데이터 소유권을 확인한다.</li>
+<li>SQLAlchemy ORM을 이용하여 데이터베이스를 조회하거나 변경한다.</li>
+<li>처리 결과에 따라 HTML 페이지 또는 안내 메시지를 반환한다.</li>
+</ol>
+<h2 id="52-사용자-권한-설계">5.2 사용자 권한 설계</h2>
+<h3 id="비회원">비회원</h3>
+<p>비회원은 다음 기능만 이용할 수 있다.</p>
+<ul>
+<li>메인 화면</li>
+<li>회원가입</li>
+<li>로그인</li>
+</ul>
+<p>인증이 필요한 기능에 접근하면 로그인 페이지로 이동한다.</p>
+<h3 id="일반-사용자">일반 사용자</h3>
+<p>일반 사용자는 다음 기능을 이용할 수 있다.</p>
+<ul>
+<li>마이페이지</li>
+<li>상품 등록 및 자신의 상품 관리</li>
+<li>상품 검색</li>
+<li>메시지</li>
+<li>신고</li>
+<li>포인트 송금</li>
+<li>송금 내역 조회</li>
+</ul>
+<p>일반 사용자는 다른 사용자의 상품을 수정하거나 삭제할 수 없으며, 관리자 페이지에도 접근할 수 없다.</p>
+<h3 id="관리자">관리자</h3>
+<p>관리자는 일반 사용자의 기능과 함께 다음 관리 기능을 사용할 수 있다.</p>
+<ul>
+<li>사용자 정지 및 해제</li>
+<li>상품 차단 및 해제</li>
+<li>신고 처리</li>
+</ul>
+<p>관리자 여부는 사용자의 <code>is_admin</code> 값을 기준으로 서버에서 확인한다.</p>
+<h2 id="53-데이터베이스-모델-설계">5.3 데이터베이스 모델 설계</h2>
+<p>프로젝트에서는 다음 다섯 개의 주요 모델을 사용하였다.</p>
+<ul>
+<li>User</li>
+<li>Product</li>
+<li>Message</li>
+<li>Report</li>
+<li>Transaction</li>
+</ul>
+<h3 id="user-모델">User 모델</h3>
+<p>사용자 계정과 권한, 포인트 정보를 저장한다.</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>사용자 고유 번호</td>
+</tr>
+<tr>
+<td><code>username</code></td>
+<td>로그인 아이디</td>
+</tr>
+<tr>
+<td><code>password_hash</code></td>
+<td>해시된 비밀번호</td>
+</tr>
+<tr>
+<td><code>bio</code></td>
+<td>사용자 소개글</td>
+</tr>
+<tr>
+<td><code>points</code></td>
+<td>보유 가상 포인트</td>
+</tr>
+<tr>
+<td><code>is_admin</code></td>
+<td>관리자 여부</td>
+</tr>
+<tr>
+<td><code>is_suspended</code></td>
+<td>계정 정지 여부</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>가입 시간</td>
+</tr>
+</tbody>
+</table>
+<h3 id="product-모델">Product 모델</h3>
+<p>사용자가 등록한 중고 상품 정보를 저장한다.</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>상품 고유 번호</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>상품명</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>상품 설명</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>상품 가격</td>
+</tr>
+<tr>
+<td><code>seller_id</code></td>
+<td>등록 사용자 ID</td>
+</tr>
+<tr>
+<td><code>is_blocked</code></td>
+<td>관리자 차단 여부</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>등록 시간</td>
+</tr>
+</tbody>
+</table>
+<h3 id="message-모델">Message 모델</h3>
+<p>사용자 간 메시지를 저장한다.</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>메시지 고유 번호</td>
+</tr>
+<tr>
+<td><code>sender_id</code></td>
+<td>발신자 ID</td>
+</tr>
+<tr>
+<td><code>receiver_id</code></td>
+<td>수신자 ID</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>메시지 내용</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>작성 시간</td>
+</tr>
+</tbody>
+</table>
+<h3 id="report-모델">Report 모델</h3>
+<p>사용자 또는 상품 신고 정보를 저장한다.</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>신고 고유 번호</td>
+</tr>
+<tr>
+<td><code>reporter_id</code></td>
+<td>신고자 ID</td>
+</tr>
+<tr>
+<td><code>target_user_id</code></td>
+<td>신고 대상 사용자 ID</td>
+</tr>
+<tr>
+<td><code>target_product_id</code></td>
+<td>신고 대상 상품 ID</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>신고 사유</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>신고 처리 상태</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>신고 시간</td>
+</tr>
+</tbody>
+</table>
+<p>신고 대상 종류에 따라 사용자 ID 또는 상품 ID 중 하나를 저장하도록 설계하였다.</p>
+<h3 id="transaction-모델">Transaction 모델</h3>
+<p>사용자 간 포인트 송금 기록을 저장한다.</p>
+<table>
+<thead>
+<tr>
+<th>필드</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>거래 고유 번호</td>
+</tr>
+<tr>
+<td><code>sender_id</code></td>
+<td>송신자 ID</td>
+</tr>
+<tr>
+<td><code>receiver_id</code></td>
+<td>수신자 ID</td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td>송금 포인트</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>송금 시간</td>
+</tr>
+</tbody>
+</table>
+<h2 id="54-모델-관계">5.4 모델 관계</h2>
+<p>데이터베이스 모델은 사용자 ID를 기준으로 연결된다.</p>
+<ul>
+<li>한 명의 사용자는 여러 상품을 등록할 수 있다.</li>
+<li>한 명의 사용자는 여러 메시지를 보내거나 받을 수 있다.</li>
+<li>한 명의 사용자는 여러 신고를 등록할 수 있다.</li>
+<li>한 명의 사용자는 여러 포인트 거래의 송신자 또는 수신자가 될 수 있다.</li>
+<li>하나의 상품은 한 명의 판매자에게 연결된다.</li>
+</ul>
+<h2 id="55-보안-설계">5.5 보안 설계</h2>
+<p>시스템 설계 단계에서 다음 보안 원칙을 적용하였다.</p>
+<h3 id="최소-권한">최소 권한</h3>
+<p>일반 사용자와 관리자의 권한을 분리하고, 필요한 기능에만 접근하도록 설계하였다.</p>
+<h3 id="서버-측-검증">서버 측 검증</h3>
+<p>HTML 폼의 제한만 신뢰하지 않고 서버에서도 모든 주요 입력값을 다시 검사하도록 설계하였다.</p>
+<h3 id="세션-기반-인증">세션 기반 인증</h3>
+<p>사용자의 로그인 상태는 Flask 세션에 저장된 사용자 ID를 기준으로 판단하도록 하였다.</p>
+<h3 id="소유권-검증">소유권 검증</h3>
+<p>상품 수정과 삭제 시 URL에 포함된 상품 ID만 신뢰하지 않고, 상품의 판매자 ID와 로그인 사용자 ID를 비교하도록 설계하였다.</p>
+<h3 id="orm-사용">ORM 사용</h3>
+<p>사용자 입력값을 SQL 문자열에 직접 연결하지 않고 SQLAlchemy ORM을 이용하도록 설계하였다.</p>
+<h3 id="출력-이스케이프">출력 이스케이프</h3>
+<p>사용자 입력값은 Jinja2의 기본 자동 이스케이프를 통해 HTML 코드가 실행되지 않도록 설계하였다.</p>
+<hr>
+<h1 id="6-주요-기능-구현">6. 주요 기능 구현</h1>
+<h2 id="61-회원가입-구현">6.1 회원가입 구현</h2>
+<p>사용자가 아이디와 비밀번호를 입력하여 새로운 계정을 생성할 수 있도록 회원가입 기능을 구현하였다.</p>
+<p>회원가입 요청이 들어오면 서버에서 다음 항목을 검증한다.</p>
+<ul>
+<li>아이디 입력 여부</li>
+<li>아이디 길이</li>
+<li>아이디 형식</li>
+<li>아이디 중복 여부</li>
+<li>비밀번호 길이</li>
+<li>비밀번호 확인 일치 여부</li>
+</ul>
+<p>아이디는 영문과 숫자로만 구성되도록 하였으며, 4자 이상 30자 이하로 제한하였다.</p>
+<p>비밀번호는 8자 이상 입력하도록 하였으며, 비밀번호와 비밀번호 확인 값이 일치하는지 검사하였다.</p>
+<p>이미 존재하는 아이디로 회원가입을 시도하면 새로운 계정을 생성하지 않고 중복 아이디 안내 메시지를 출력하도록 구현하였다.</p>
+<blockquote>
+<p><img src="Flaskserver.png" alt="회원가입 화면"></p>
+</blockquote>
+<h2 id="62-비밀번호-해시-저장">6.2 비밀번호 해시 저장</h2>
+<p>회원가입 과정에서 사용자가 입력한 비밀번호 원문을 데이터베이스에 직접 저장하지 않았다.</p>
+<p>Werkzeug의 <code>generate_password_hash()</code> 함수를 사용하여 비밀번호를 해시값으로 변환한 후 <code>password_hash</code> 필드에 저장하였다.</p>
+<pre class="hljs"><code><div>password_hash = generate_password_hash(password)
+</div></code></pre>
+<p>이 방식은 데이터베이스가 노출되더라도 사용자의 실제 비밀번호가 그대로 확인되는 위험을 줄인다.</p>
+<p>회원가입이 정상적으로 완료되면 메인 페이지로 이동하며 회원가입 완료 메시지를 출력하도록 구현하였다.</p>
+<blockquote>
+<p><img src="complete.png" alt="회원가입 완료 메시지 화면"></p>
+</blockquote>
+<h2 id="63-로그인-구현">6.3 로그인 구현</h2>
+<p>가입된 사용자가 아이디와 비밀번호를 이용하여 로그인할 수 있도록 구현하였다.</p>
+<p>서버에서는 입력된 아이디를 기준으로 사용자를 조회한 뒤, Werkzeug의 <code>check_password_hash()</code> 함수를 이용하여 입력된 비밀번호와 저장된 해시값을 비교하였다.</p>
+<pre class="hljs"><code><div>check_password_hash(user.password_hash, password)
+</div></code></pre>
+<p>아이디가 존재하지 않는 경우와 비밀번호가 틀린 경우를 구분하지 않고 다음과 같은 동일한 오류 메시지를 사용하였다.</p>
+<pre class="hljs"><code><div>아이디 또는 비밀번호가 올바르지 않습니다.
+</div></code></pre>
+<p>이를 통해 공격자가 로그인 오류 메시지만으로 특정 아이디의 가입 여부를 추측하기 어렵도록 하였다.</p>
+<p>정지된 사용자가 올바른 비밀번호를 입력하더라도 로그인을 허용하지 않도록 구현하였다.</p>
+<h2 id="64-세션-관리">6.4 세션 관리</h2>
+<p>로그인에 성공하면 Flask 세션에 현재 사용자의 ID를 저장하였다.</p>
+<p>기존 세션 데이터가 남아 있는 상황을 방지하기 위해 로그인 성공 시 기존 세션을 초기화한 후 사용자 ID를 저장하도록 하였다.</p>
+<p>로그아웃 시에는 세션 전체를 삭제하여 로그인 상태를 종료하였다.</p>
+<p>비로그인 사용자가 로그인이 필요한 페이지에 접근하면 로그인 페이지로 이동하도록 구현하였다.</p>
+<h2 id="65-로그인-및-로그아웃-테스트">6.5 로그인 및 로그아웃 테스트</h2>
+<table>
+<thead>
+<tr>
+<th>테스트 항목</th>
+<th>입력 또는 동작</th>
+<th>기대 결과</th>
+<th>실제 결과</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>잘못된 비밀번호</td>
+<td><code>testuser</code>와 잘못된 비밀번호 입력</td>
+<td>로그인 실패</td>
+<td>동일한 로그인 실패 메시지 출력</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>정상 로그인</td>
+<td><code>testuser</code>와 정상 비밀번호 입력</td>
+<td>로그인 성공</td>
+<td>사용자명과 보유 포인트 표시</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>로그인 상태에서 회원가입 접근</td>
+<td><code>/register</code> 주소 직접 입력</td>
+<td>회원가입 접근 차단</td>
+<td>이미 로그인되어 있다는 메시지 출력</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>로그아웃</td>
+<td>로그아웃 버튼 선택</td>
+<td>세션 종료</td>
+<td>비회원 메인 화면으로 이동</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>정지 사용자 로그인</td>
+<td>정지된 계정으로 로그인</td>
+<td>로그인 차단</td>
+<td>정지 계정 안내 후 로그인 실패</td>
+<td>PASS</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>![잘못된 비밀번호 입력 후 로그인 실패 화면](스크린샷 2026-07-22 174907.png)</p>
+</blockquote>
+<blockquote>
+<p>![정상 로그인 후 사용자명과 10,000점이 표시된 화면](스크린샷 2026-07-22 174924.png)</p>
+</blockquote>
+<blockquote>
+<p>![로그아웃 완료 후 비회원 메인 화면](스크린샷 2026-07-22 174944.png)</p>
+</blockquote>
+<h2 id="66-마이페이지-구현">6.6 마이페이지 구현</h2>
+<p>로그인한 사용자가 자신의 계정 정보를 확인할 수 있도록 마이페이지를 구현하였다.</p>
+<p>마이페이지에서는 다음 정보를 표시한다.</p>
+<ul>
+<li>아이디</li>
+<li>가입일</li>
+<li>보유 포인트</li>
+<li>소개글</li>
+</ul>
+<p>비로그인 사용자가 <code>/mypage</code> 주소에 직접 접근하는 경우 로그인 페이지로 이동하도록 구현하였다.</p>
+<p>이를 통해 인증되지 않은 사용자가 사용자 정보를 조회하거나 수정하는 것을 방지하였다.</p>
+<blockquote>
+<p>![아이디, 가입일, 포인트가 표시된 마이페이지 화면](스크린샷 2026-07-22 175720.png)</p>
+</blockquote>
+<h2 id="67-소개글-수정">6.7 소개글 수정</h2>
+<p>사용자는 마이페이지에서 자신의 소개글을 입력하거나 수정할 수 있다.</p>
+<p>소개글은 서버에서 최대 300자로 제한하였으며, 검증을 통과한 경우 데이터베이스에 저장하였다.</p>
+<p>수정이 완료되면 마이페이지로 다시 이동하며 소개글 수정 완료 메시지를 출력하도록 하였다.</p>
+<p>사용자가 입력한 소개글은 Jinja2 템플릿을 통해 출력되며, HTML 자동 이스케이프가 적용된다.</p>
+<p>따라서 소개글에 HTML 태그나 스크립트 문자열을 입력하더라도 브라우저에서 직접 실행되지 않도록 구성하였다.</p>
+<blockquote>
+<p>![소개글 입력 전 마이페이지 화면](스크린샷 2026-07-22 175720.png)</p>
+</blockquote>
+<blockquote>
+<p>![소개글 수정 완료 후 내용이 저장된 화면](스크린샷 2026-07-22 175733.png)</p>
+</blockquote>
+<h2 id="68-초기-구현-단계의-보안-적용-결과">6.8 초기 구현 단계의 보안 적용 결과</h2>
+<p>회원가입, 로그인, 세션, 마이페이지 구현 과정에서 적용한 보안 항목은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>보안 항목</th>
+<th>적용 여부</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비밀번호 평문 저장 금지</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>비밀번호 해시 저장</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>아이디 중복 검사</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>아이디 및 비밀번호 길이 검증</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>로그인 오류 메시지 통일</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>정지 사용자 로그인 차단</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>세션 기반 인증</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>비로그인 마이페이지 접근 차단</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>소개글 길이 서버 검증</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>Jinja2 자동 이스케이프</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>SQLAlchemy ORM</td>
+<td>적용</td>
+</tr>
+</tbody>
+</table>
+<h1 id="7-상품-관리-기능-구현">7. 상품 관리 기능 구현</h1>
+<h2 id="71-구현-목적">7.1 구현 목적</h2>
+<p>중고거래 플랫폼의 핵심 기능인 상품 등록, 조회, 수정, 삭제 기능을 구현하였다.
+사용자는 자신이 판매하고자 하는 상품을 등록할 수 있으며, 등록된 상품은 다른 사용자들이 조회할 수 있도록 설계하였다.</p>
+<p>상품 정보는 Product 테이블에 저장되며, 제목, 설명, 가격, 작성자 정보, 등록 시간을 관리하도록 구현하였다.</p>
+<hr>
+<h2 id="72-상품-등록">7.2 상품 등록</h2>
+<p>상품 등록 화면에서는 다음 정보를 입력받는다.</p>
+<ul>
+<li>상품명</li>
+<li>상품 설명</li>
+<li>판매 가격</li>
+</ul>
+<p>등록 요청이 들어오면 서버에서는 다음 항목을 검증한다.</p>
+<ul>
+<li>로그인 여부</li>
+<li>제목 입력 여부</li>
+<li>설명 입력 여부</li>
+<li>가격 숫자 여부</li>
+<li>가격이 1 이상인지 확인</li>
+</ul>
+<p>입력값 검증이 완료되면 데이터베이스에 새로운 상품을 저장하며,
+상품 목록에서 즉시 확인할 수 있도록 구현하였다.</p>
+<ul>
+<li>
+<p>상품 등록 화면
+![상품 등록 화면](스크린샷 2026-07-22 180624.png)</p>
+</li>
+<li>
+<p>상품 등록 완료 화면
+![상품 등록 완료 화면](스크린샷 2026-07-22 180634.png)</p>
+</li>
+</ul>
+<hr>
+<h2 id="73-상품-조회">7.3 상품 조회</h2>
+<p>등록된 상품은 메인 페이지에서 목록 형태로 출력되도록 구현하였다.</p>
+<p>상품 목록에서는 다음 정보를 확인할 수 있다.</p>
+<ul>
+<li>상품명</li>
+<li>가격</li>
+<li>작성자</li>
+<li>등록 시간</li>
+</ul>
+<p>상품을 선택하면 상세 페이지로 이동하여 상품 설명과 판매자 정보를 확인할 수 있도록 구현하였다.</p>
+<hr>
+<h2 id="74-상품-수정">7.4 상품 수정</h2>
+<p>상품 수정 기능은 작성자 본인만 사용할 수 있도록 구현하였다.</p>
+<p>상품 수정 요청이 들어오면 서버에서는 다음 내용을 확인한다.</p>
+<ul>
+<li>로그인 여부</li>
+<li>작성자 여부</li>
+<li>입력값 검증</li>
+</ul>
+<p>작성자가 아닌 사용자가 URL을 직접 입력하여 접근하는 경우 수정이 불가능하도록 서버에서 권한을 검사하였다.</p>
+<hr>
+<h2 id="75-상품-삭제">7.5 상품 삭제</h2>
+<p>상품 삭제 기능 역시 작성자 본인만 사용할 수 있도록 구현하였다.</p>
+<p>삭제 요청 시 서버에서 작성자 여부를 다시 확인하며,
+삭제가 완료되면 상품 목록에서 즉시 제거되도록 구현하였다.</p>
+<p>이를 통해 다른 사용자가 임의로 상품을 삭제하는 것을 방지하였다.</p>
+<hr>
+<h1 id="8-상품-검색-기능-구현">8. 상품 검색 기능 구현</h1>
+<p>사용자가 원하는 상품을 빠르게 찾을 수 있도록 검색 기능을 구현하였다.</p>
+<p>검색은 상품명과 상품 설명을 기준으로 수행하였다.</p>
+<p>SQLAlchemy ORM을 이용하여 LIKE 검색을 구현하였으며,
+사용자가 입력한 검색어를 SQL 문자열에 직접 연결하지 않도록 작성하였다.</p>
+<p>검색 결과가 존재하지 않는 경우에는 사용자에게 검색 결과가 없음을 안내하도록 구현하였다.</p>
+<ul>
+<li>검색 화면
+![검색 화면](스크린샷 2026-07-22 193643.png)</li>
+</ul>
+<hr>
+<h1 id="9-1대1-메시지-기능-구현">9. 1대1 메시지 기능 구현</h1>
+<p>사용자 간 거래 문의가 가능하도록 1대1 메시지 기능을 구현하였다.</p>
+<p>메시지는 발신자 ID, 수신자 ID, 내용, 작성 시간을 데이터베이스에 저장하도록 구현하였다.</p>
+<p>또한 두 사용자 사이의 대화만 조회하도록 구현하여 다른 사용자의 메시지가 노출되지 않도록 하였다.</p>
+<p>메시지 작성 시 발신자 ID는 클라이언트에서 전달받지 않고 현재 로그인한 세션의 사용자 정보를 사용하였다.</p>
+<p>이를 통해 발신자 위조를 방지하였다.</p>
+<p>메시지 입력 시 서버에서는 다음 사항을 검증한다.</p>
+<ul>
+<li>로그인 여부</li>
+<li>자기 자신에게 메시지 전송 금지</li>
+<li>정지된 사용자 여부</li>
+<li>메시지 길이(1~1000자)</li>
+</ul>
+<p>위 조건을 만족하는 경우에만 메시지를 저장하도록 구현하였다.</p>
+<p>![메시지 작성 및 목록 화면](스크린샷 2026-07-22 200157.png)</p>
+<hr>
+<h1 id="10-신고-기능-구현">10. 신고 기능 구현</h1>
+<p>플랫폼 내 부적절한 상품 및 사용자를 신고할 수 있도록 신고 기능을 구현하였다.</p>
+<p>신고 시 다음 정보를 입력받는다.</p>
+<ul>
+<li>신고 대상</li>
+<li>신고 사유</li>
+</ul>
+<p>신고 내용은 Report 테이블에 저장되며 관리자가 확인 후 처리하도록 설계하였다.</p>
+<p>동일한 신고가 발생하더라도 관리자가 직접 검토할 수 있도록 신고 내역을 보관하도록 구현하였다.</p>
+<p>또한 일반 사용자는 자신이 등록한 신고를 수정하거나 처리할 수 없도록 권한을 제한하였다.</p>
+<ul>
+<li>
+<p>신고 작성 화면
+![신고 작성 화면](스크린샷 2026-07-22 200725.png)</p>
+</li>
+<li>
+<p>신고 완료 화면
+![신고완료 화면](스크린샷 2026-07-22 200731.png)</p>
+</li>
+</ul>
+<hr>
+<h1 id="11-관리자-기능-구현">11. 관리자 기능 구현</h1>
+<p>관리자는 일반 사용자보다 높은 권한을 가지도록 구현하였다.</p>
+<p>관리자 계정으로 로그인하면 관리자 전용 페이지에 접근할 수 있다.</p>
+<p>관리자가 수행할 수 있는 기능은 다음과 같다.</p>
+<ul>
+<li>전체 사용자 조회</li>
+<li>사용자 정지</li>
+<li>상품 차단</li>
+<li>신고 처리</li>
+</ul>
+<p>관리자 페이지 접근 시 서버에서 관리자 권한을 확인하며,
+일반 사용자가 URL을 직접 입력하더라도 접근이 거부되도록 구현하였다.</p>
+<p>또한 정지된 사용자는 로그인 및 주요 기능 사용이 제한되도록 설계하였다.</p>
+<ul>
+<li>관리자 메인 화면
+![관리자 메인 화면](스크린샷 2026-07-22 201600.png)</li>
+</ul>
+<hr>
+<h1 id="12-포인트-송금-기능-구현">12. 포인트 송금 기능 구현</h1>
+<h2 id="121-구현-목적">12.1 구현 목적</h2>
+<p>사용자 간에 플랫폼 내부의 가상 포인트를 안전하게 송금할 수 있도록 포인트 송금 기능을 구현하였다.</p>
+<p>본 프로젝트의 포인트는 실제 현금이나 금융 결제가 아닌 학습용 가상 포인트이다. 신규 사용자는 테스트를 위해 기본적으로 10,000점을 지급받으며, 로그인한 사용자는 자신이 보유한 포인트 범위 안에서 다른 사용자에게 포인트를 송금할 수 있다.</p>
+<p>송금 기능에서는 송신자의 포인트 차감, 수신자의 포인트 증가, 송금 기록 저장이 모두 함께 처리되어야 한다. 따라서 일부 작업만 반영되어 사용자 잔액이 불일치하는 상황을 방지하는 것을 중요한 구현 목표로 설정하였다.</p>
+<hr>
+<h2 id="122-구현-내용">12.2 구현 내용</h2>
+<p>포인트 송금 기능은 다음과 같이 구성하였다.</p>
+<ul>
+<li>수신 사용자 아이디 입력</li>
+<li>송금할 포인트 입력</li>
+<li>현재 보유 포인트 표시</li>
+<li>송신자 포인트 차감</li>
+<li>수신자 포인트 증가</li>
+<li>송금 기록 저장</li>
+<li>송금 내역 조회</li>
+</ul>
+<p>사용자가 송금 화면에서 수신자의 아이디와 송금액을 입력하면, 서버는 수신 사용자의 존재 여부와 송금 가능 여부를 검사한다.</p>
+<p>모든 조건을 만족하면 다음 작업을 수행한다.</p>
+<ol>
+<li>송신자의 보유 포인트에서 송금액을 차감한다.</li>
+<li>수신자의 보유 포인트에 송금액을 더한다.</li>
+<li><code>Transaction</code> 테이블에 송금 기록을 생성한다.</li>
+<li>하나의 <code>commit()</code>으로 데이터베이스에 저장한다.</li>
+</ol>
+<p>송금 기록에는 다음 정보가 저장된다.</p>
+<ul>
+<li>송신자 ID</li>
+<li>수신자 ID</li>
+<li>송금 포인트</li>
+<li>송금 시간</li>
+</ul>
+<p>사용자는 송금 내역 페이지에서 자신이 송금하거나 수신한 거래만 확인할 수 있다.</p>
+<hr>
+<h2 id="123-서버-측-검증">12.3 서버 측 검증</h2>
+<p>클라이언트에서 전달한 입력값을 그대로 신뢰하지 않고 서버에서 다음 항목을 검증하였다.</p>
+<ul>
+<li>로그인 사용자만 송금 가능</li>
+<li>현재 로그인 사용자의 계정 존재 여부 확인</li>
+<li>정지된 계정의 송금 차단</li>
+<li>수신 사용자 존재 여부 확인</li>
+<li>자기 자신에게 송금 차단</li>
+<li>정지된 사용자에게 송금 차단</li>
+<li>송금액의 정수 변환 가능 여부 확인</li>
+<li>0 이하의 송금액 차단</li>
+<li>보유 포인트를 초과한 송금 차단</li>
+</ul>
+<p>송신자 ID는 사용자가 요청값으로 제출하지 않으며, Flask 세션에 저장된 현재 로그인 사용자 ID를 사용하였다. 이를 통해 다른 사용자의 ID를 송신자로 지정하는 행위를 방지하였다.</p>
+<hr>
+<h2 id="124-트랜잭션-처리">12.4 트랜잭션 처리</h2>
+<p>포인트 송금은 송신자와 수신자의 잔액을 동시에 변경해야 한다.</p>
+<p>다음 세 작업을 하나의 데이터베이스 처리 흐름으로 구성하였다.</p>
+<ol>
+<li>송신자 포인트 차감</li>
+<li>수신자 포인트 증가</li>
+<li>송금 기록 저장</li>
+</ol>
+<p>정상 처리 시 한 번의 <code>commit()</code>으로 저장하며, 처리 도중 예외가 발생한 경우 <code>rollback()</code>을 수행하도록 구현하였다.</p>
+<p>이를 통해 다음과 같은 불완전한 처리 가능성을 줄였다.</p>
+<ul>
+<li>송신자의 포인트만 차감되는 문제</li>
+<li>수신자의 포인트만 증가하는 문제</li>
+<li>포인트는 이동했지만 송금 기록이 저장되지 않는 문제</li>
+</ul>
+<p>다만 다수의 송금 요청이 동시에 처리되는 경쟁 상태에 대해서는 별도의 동시성 검증을 수행하지 않았다. 실제 운영환경에서는 데이터베이스 잠금이나 원자적 조건부 갱신 등의 추가 보호가 필요하다.</p>
+<hr>
+<h2 id="125-테스트-결과">12.5 테스트 결과</h2>
+<p>포인트 송금 기능의 테스트 결과는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>번호</th>
+<th>테스트 내용</th>
+<th>입력 또는 동작</th>
+<th>기대 결과</th>
+<th>실제 결과</th>
+<th>판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAY-01</td>
+<td>정상 송금</td>
+<td><code>buyeruser</code>가 <code>testuser</code>에게 1,500점 송금</td>
+<td>송신자 차감, 수신자 증가, 기록 저장</td>
+<td>송신자 포인트가 10,000점에서 8,500점으로 변경됨</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>PAY-02</td>
+<td>수신자 잔액 확인</td>
+<td><code>testuser</code> 계정으로 잔액 확인</td>
+<td>11,500점 표시</td>
+<td>현재 포인트 11,500점 표시</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>PAY-03</td>
+<td>잔액 초과 송금</td>
+<td>보유 포인트보다 큰 금액 입력</td>
+<td>송금 차단 및 기존 잔액 유지</td>
+<td>포인트 부족 메시지가 출력되고 잔액 유지</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>PAY-04</td>
+<td>자기 자신에게 송금</td>
+<td>수신자에 자신의 아이디 입력</td>
+<td>송금 차단</td>
+<td>자기 자신에게 송금할 수 없다는 메시지 출력</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>PAY-05</td>
+<td>존재하지 않는 사용자</td>
+<td>존재하지 않는 아이디 입력</td>
+<td>송금 차단</td>
+<td>사용자를 찾을 수 없다는 메시지 출력</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>PAY-06</td>
+<td>데이터베이스 처리</td>
+<td>포인트 변경과 기록 저장</td>
+<td>하나의 처리 흐름으로 반영</td>
+<td><code>commit()</code>과 오류 시 <code>rollback()</code> 구조 적용</td>
+<td>PASS</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>![정상 송금 후 송금자의 포인트가 8,500점으로 변경된 화면](스크린샷 2026-07-22 202224.png)</p>
+</blockquote>
+<blockquote>
+<p>![수신자의 포인트가 11,500점으로 변경된 화면](스크린샷 2026-07-22 202259.png)</p>
+</blockquote>
+<blockquote>
+<p>![보유 포인트보다 큰 금액을 송금했을 때 차단된 화면](스크린샷 2026-07-22 202333.png)</p>
+</blockquote>
+<blockquote>
+<p>![자기 자신 또는 존재하지 않는 사용자에게 송금했을 때 차단된 화면1](스크린샷 2026-07-22 202351.png)</p>
+</blockquote>
+<blockquote>
+<p>![자기 자신 또는 존재하지 않는 사용자에게 송금했을 때 차단된 화면2](스크린샷 2026-07-22 202351.png)</p>
+</blockquote>
+<hr>
+<h1 id="13-적용한-보안-기능">13. 적용한 보안 기능</h1>
+<h2 id="131-보안-구현-개요">13.1 보안 구현 개요</h2>
+<p>본 프로젝트는 기능 구현뿐 아니라 중고거래 플랫폼에서 발생할 수 있는 기본적인 보안 문제를 확인하고 개선하는 것을 목표로 하였다.</p>
+<p>주요 보안 적용 항목은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>보안 항목</th>
+<th>적용 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>비밀번호 보호</td>
+<td>Werkzeug를 이용한 해시 저장</td>
+</tr>
+<tr>
+<td>입력값 검증</td>
+<td>회원가입, 상품, 소개글, 메시지, 신고, 송금 입력값 서버 검증</td>
+</tr>
+<tr>
+<td>사용자 인증</td>
+<td>Flask 세션 기반 로그인 상태 관리</td>
+</tr>
+<tr>
+<td>접근 제어</td>
+<td>상품 소유권 및 관리자 권한 서버 측 검사</td>
+</tr>
+<tr>
+<td>SQL Injection 대응</td>
+<td>Flask-SQLAlchemy ORM 사용</td>
+</tr>
+<tr>
+<td>XSS 대응</td>
+<td>Jinja2 기본 자동 이스케이프 사용</td>
+</tr>
+<tr>
+<td>메시지 위조 방지</td>
+<td>발신자 ID를 세션에서 지정</td>
+</tr>
+<tr>
+<td>송금 무결성</td>
+<td>하나의 <code>commit()</code>과 오류 시 <code>rollback()</code> 적용</td>
+</tr>
+<tr>
+<td>민감 파일 보호</td>
+<td>데이터베이스와 가상환경을 GitHub 업로드 대상에서 제외</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="132-비밀번호-해시-저장">13.2 비밀번호 해시 저장</h2>
+<p>사용자의 비밀번호를 데이터베이스에 평문으로 저장하지 않았다.</p>
+<p>회원가입 시 Werkzeug의 <code>generate_password_hash()</code> 함수를 사용하여 비밀번호를 해시값으로 변환한 뒤 저장하였다.</p>
+<p>로그인 시에는 사용자가 입력한 비밀번호와 데이터베이스에 저장된 해시값을 <code>check_password_hash()</code> 함수로 비교하였다.</p>
+<p>따라서 데이터베이스가 노출되더라도 사용자의 비밀번호 원문이 그대로 확인되지 않도록 하였다.</p>
+<hr>
+<h2 id="133-입력값-검증">13.3 입력값 검증</h2>
+<p>HTML 입력 요소의 <code>min</code>, <code>maxlength</code> 등의 속성만으로는 개발자 도구나 직접 요청을 이용한 우회가 가능하다.</p>
+<p>따라서 모든 주요 입력값은 서버에서 다시 검증하였다.</p>
+<h3 id="회원가입-검증">회원가입 검증</h3>
+<ul>
+<li>아이디 길이: 4자 이상 30자 이하</li>
+<li>아이디 문자: 영문과 숫자만 허용</li>
+<li>비밀번호 길이: 8자 이상</li>
+<li>비밀번호 확인 일치 여부</li>
+<li>중복 아이디 여부</li>
+</ul>
+<h3 id="마이페이지-검증">마이페이지 검증</h3>
+<ul>
+<li>소개글 길이: 300자 이하</li>
+</ul>
+<h3 id="상품-검증">상품 검증</h3>
+<ul>
+<li>상품명 길이: 2자 이상 100자 이하</li>
+<li>상품 설명 길이: 1자 이상 2,000자 이하</li>
+<li>가격 정수 변환 여부</li>
+<li>가격 범위: 1원 이상 1억 원 이하</li>
+</ul>
+<h3 id="메시지-검증">메시지 검증</h3>
+<ul>
+<li>메시지 길이: 1자 이상 1,000자 이하</li>
+<li>자기 자신에게 메시지 전송 차단</li>
+<li>정지된 사용자와의 메시지 차단</li>
+</ul>
+<h3 id="신고-검증">신고 검증</h3>
+<ul>
+<li>신고 사유 길이: 5자 이상 500자 이하</li>
+<li>자기 자신 신고 차단</li>
+<li>자신이 등록한 상품 신고 차단</li>
+<li>동일 대상 중복 신고 차단</li>
+</ul>
+<h3 id="송금-검증">송금 검증</h3>
+<ul>
+<li>수신 사용자 존재 여부</li>
+<li>정지된 사용자 여부</li>
+<li>자기 자신에게 송금 차단</li>
+<li>송금액 정수 변환 여부</li>
+<li>0 이하의 금액 차단</li>
+<li>보유 포인트 초과 여부</li>
+</ul>
+<hr>
+<h2 id="134-인증과-세션-관리">13.4 인증과 세션 관리</h2>
+<p>로그인에 성공하면 사용자 ID를 Flask 세션에 저장하였다.</p>
+<p>로그인 시 기존 세션을 먼저 초기화한 후 현재 사용자의 ID를 새로 저장하도록 하였다.</p>
+<p>로그아웃 요청 시에는 세션 전체를 삭제하였다.</p>
+<p>세션에 저장된 사용자 ID가 실제 데이터베이스에 존재하지 않는 경우에도 세션을 초기화하도록 구현하였다.</p>
+<p>로그인이 필요한 페이지에서는 세션에 사용자 ID가 있는지 확인하고, 비로그인 사용자가 접근할 경우 로그인 페이지로 이동하도록 하였다.</p>
+<hr>
+<h2 id="135-권한-검증">13.5 권한 검증</h2>
+<p>화면에서 버튼을 숨기는 것만으로는 권한을 보호할 수 없다. 사용자는 URL을 직접 입력하거나 HTTP 요청을 수정할 수 있기 때문이다.</p>
+<p>따라서 상품 수정, 상품 삭제, 관리자 기능 등 중요한 작업은 요청이 서버에 도착했을 때 다시 권한을 검사하도록 하였다.</p>
+<h3 id="상품-소유권-검증">상품 소유권 검증</h3>
+<p>상품 수정과 삭제는 다음 사용자만 수행할 수 있다.</p>
+<ul>
+<li>상품 등록자</li>
+<li>관리자</li>
+</ul>
+<p>일반 사용자가 URL의 상품 ID를 변경하여 타인의 상품에 접근하더라도, 상품의 <code>seller_id</code>와 로그인 사용자 ID를 비교하여 작업을 차단한다.</p>
+<h3 id="관리자-권한-검증">관리자 권한 검증</h3>
+<p>관리자 관련 요청은 <code>is_admin</code> 값이 참인 사용자만 수행할 수 있다.</p>
+<p>일반 사용자가 <code>/admin</code> 주소에 직접 접근하더라도 관리자 페이지가 표시되지 않도록 하였다.</p>
+<p>관리자는 자신의 관리자 계정이나 다른 관리자 계정을 정지할 수 없도록 제한하였다.</p>
+<hr>
+<h2 id="136-sql-injection-대응">13.6 SQL Injection 대응</h2>
+<p>본 프로젝트는 SQLAlchemy ORM을 사용하였다.</p>
+<p>사용자 입력값을 SQL 문자열에 직접 이어 붙이지 않고 ORM의 조회 조건으로 전달하였다.</p>
+<p>로그인 사용자를 조회할 때는 다음과 같이 아이디를 조건으로 검색하였다.</p>
+<pre class="hljs"><code><div>user = User.query.filter_by(username=username).first()
+</div></code></pre>
+<p>상품 검색 역시 ORM의 <code>contains()</code> 조건을 사용하여 상품명과 설명을 검색하였다.</p>
+<pre class="hljs"><code><div>products_query = products_query.<span class="hljs-built_in">filter</span>(
+    Product.title.contains(search_query)
+    | Product.description.contains(search_query)
+)
+</div></code></pre>
+<p>이 방식은 사용자 입력이 SQL 명령어 자체로 실행되는 위험을 줄인다.</p>
+<hr>
+<h2 id="137-xss-대응">13.7 XSS 대응</h2>
+<p>Flask의 Jinja2 템플릿은 기본적으로 HTML 자동 이스케이프를 적용한다.</p>
+<p>사용자가 작성한 다음 내용은 HTML 코드로 직접 실행하지 않고 텍스트로 출력하도록 구성하였다.</p>
+<ul>
+<li>소개글</li>
+<li>상품명</li>
+<li>상품 설명</li>
+<li>메시지</li>
+<li>신고 사유</li>
+</ul>
+<p>템플릿에서 사용자 입력에 <code>safe</code> 필터를 사용하지 않았다.</p>
+<p>저장형 XSS 테스트를 통해 소개글에 입력한 스크립트가 실행되지 않고 문자열로 표시되는 것을 확인하였다.</p>
+<hr>
+<h2 id="138-포인트-송금-무결성">13.8 포인트 송금 무결성</h2>
+<p>포인트 송금에서는 송신자 잔액 차감, 수신자 잔액 증가, 거래 기록 저장을 하나의 흐름으로 처리하였다.</p>
+<p>정상 처리 시 한 번의 <code>commit()</code>으로 저장하며, 예외가 발생하면 <code>rollback()</code>을 수행한다.</p>
+<p>이를 통해 일부 데이터만 반영되는 문제를 줄였다.</p>
+<hr>
+<h1 id="14-보안-테스트">14. 보안 테스트</h1>
+<h2 id="141-테스트-목적">14.1 테스트 목적</h2>
+<p>보안 기능이 코드에 존재하는지만 확인하지 않고 실제 공격 문자열을 입력하여 기본적인 동작을 확인하였다.</p>
+<p>수행한 주요 테스트는 다음과 같다.</p>
+<ul>
+<li>로그인 SQL Injection 테스트</li>
+<li>상품 검색 SQL Injection 테스트</li>
+<li>마이페이지 소개글 저장형 XSS 테스트</li>
+</ul>
+<hr>
+<h2 id="142-로그인-sql-injection-테스트">14.2 로그인 SQL Injection 테스트</h2>
+<p>로그인 화면의 아이디 입력란에 다음 문자열을 입력하였다.</p>
+<pre class="hljs"><code><div>&#x27; OR 1=1 --
+</div></code></pre>
+<p>일반적인 취약한 로그인 코드에서는 위 문자열이 SQL 조건을 항상 참으로 만들어 인증을 우회할 가능성이 있다.</p>
+<p>본 프로젝트에서는 SQLAlchemy ORM을 사용하여 아이디를 조회하므로 입력 문자열이 SQL 명령문으로 결합되지 않고 하나의 사용자 아이디 값으로 처리된다.</p>
+<h3 id="테스트-결과">테스트 결과</h3>
+<ul>
+<li>로그인 인증을 우회하지 못하였다.</li>
+<li>관리자 또는 다른 사용자 계정으로 로그인되지 않았다.</li>
+<li>서버 오류가 발생하지 않았다.</li>
+<li>“아이디 또는 비밀번호가 올바르지 않습니다.”라는 일반적인 로그인 실패 메시지가 출력되었다.</li>
+</ul>
+<h3 id="판정">판정</h3>
+<p><code>PASS</code></p>
+<p><img src="../evidence/sql_injection_login_blocked.png" alt="SQL Injection 로그인 차단 결과"></p>
+<hr>
+<h2 id="143-상품-검색-sql-injection-테스트">14.3 상품 검색 SQL Injection 테스트</h2>
+<p>상품 검색창에 다음 문자열을 입력하였다.</p>
+<pre class="hljs"><code><div>&#x27; OR 1=1 --
+</div></code></pre>
+<p>검색 기능은 SQLAlchemy ORM의 <code>contains()</code> 조건을 사용하여 구현하였다.</p>
+<h3 id="테스트-결과-1">테스트 결과</h3>
+<ul>
+<li>서버 오류가 발생하지 않았다.</li>
+<li>전체 상품이 강제로 노출되지 않았다.</li>
+<li>SQL 명령문으로 실행되지 않았다.</li>
+<li>입력 문자열이 일반적인 검색어로 처리되었다.</li>
+</ul>
+<h3 id="판정-1">판정</h3>
+<p><code>PASS</code></p>
+<p><img src="../evidence/sql_injection_search_blocked.png" alt="SQL Injection 검색 차단 결과"></p>
+<hr>
+<h2 id="144-저장형-xss-테스트">14.4 저장형 XSS 테스트</h2>
+<p>마이페이지 소개글에 다음 문자열을 입력하여 저장하였다.</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert(1)<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<p>저장형 XSS 취약점이 존재하는 경우 페이지를 다시 열었을 때 브라우저에서 <code>alert(1)</code> 경고창이 실행될 수 있다.</p>
+<h3 id="테스트-결과-2">테스트 결과</h3>
+<ul>
+<li>브라우저 경고창이 실행되지 않았다.</li>
+<li>스크립트가 HTML 코드로 처리되지 않았다.</li>
+<li>입력 문자열이 화면에 텍스트 형태로 표시되었다.</li>
+</ul>
+<p>Jinja2의 기본 자동 이스케이프가 적용되었으며, 사용자 입력을 출력하는 위치에서 <code>safe</code> 필터를 사용하지 않았기 때문에 스크립트가 실행되지 않은 것으로 확인하였다.</p>
+<h3 id="판정-2">판정</h3>
+<p><code>PASS</code></p>
+<p><img src="../evidence/xss_bio_escaped.png" alt="저장형 XSS 차단 결과"></p>
+<hr>
+<h2 id="145-전체-테스트-결과">14.5 전체 테스트 결과</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>테스트 결과</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>회원가입 및 로그인</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>마이페이지</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>상품 등록·조회·수정·삭제</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>상품 검색</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>사용자 간 메시지</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>사용자 및 상품 신고</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>관리자 사용자·상품·신고 관리</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>가상 포인트 송금</td>
+<td>정상 동작</td>
+</tr>
+<tr>
+<td>SQL Injection 로그인 테스트</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>SQL Injection 검색 테스트</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>저장형 XSS 소개글 테스트</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>CSRF 방어</td>
+<td>미적용</td>
+</tr>
+<tr>
+<td>메시지·상품·신고 위치의 추가 XSS 동적 테스트</td>
+<td>추가 검증 필요</td>
+</tr>
+</tbody>
+</table>
+<p>테스트 결과 과제에서 요구한 핵심 기능은 정상적으로 작동하였다.</p>
+<p>SQL Injection 로그인 우회와 검색 기능 공격 테스트에서는 인증 우회나 데이터 노출이 발생하지 않았다.</p>
+<p>소개글 저장형 XSS 테스트에서도 스크립트가 실행되지 않고 텍스트로 출력되는 것을 확인하였다.</p>
+<hr>
+<h1 id="15-현재-제한사항-및-잔여-보안-위험">15. 현재 제한사항 및 잔여 보안 위험</h1>
+<p>현재 프로젝트는 교육 및 로컬 테스트를 목적으로 개발하였다.</p>
+<p>다음 항목은 현재 버전에 적용되지 않았거나 추가적인 개선이 필요하다.</p>
+<h2 id="151-csrf-방어-미적용">15.1 CSRF 방어 미적용</h2>
+<p>상품 삭제, 소개글 수정, 메시지 전송, 신고, 송금, 관리자 상태 변경 등의 POST 요청에 CSRF 토큰이 적용되지 않았다.</p>
+<p>향후 Flask-WTF의 <code>CSRFProtect</code>를 적용하여 외부 사이트에서 로그인 사용자의 권한을 악용한 요청을 보내는 것을 방지해야 한다.</p>
+<hr>
+<h2 id="152-secret_key-코드-내부-저장">15.2 SECRET_KEY 코드 내부 저장</h2>
+<p>현재 Flask의 <code>SECRET_KEY</code>는 개발 편의를 위해 <code>app.py</code> 내부 문자열로 설정되어 있다.</p>
+<p>실제 운영환경에서는 환경변수나 별도의 비밀 관리 시스템으로 이동해야 한다.</p>
+<hr>
+<h2 id="153-로그인-시도-제한-미적용">15.3 로그인 시도 제한 미적용</h2>
+<p>반복적인 로그인 실패 요청을 제한하지 않았다.</p>
+<p>향후 Flask-Limiter를 사용하거나 일정 횟수 이상 로그인에 실패한 계정을 일시적으로 잠그는 기능을 적용할 수 있다.</p>
+<hr>
+<h2 id="154-https-미적용">15.4 HTTPS 미적용</h2>
+<p>현재 애플리케이션은 로컬 개발환경의 HTTP 주소에서 실행된다.</p>
+<p>실제 서비스에서는 TLS 인증서를 적용하여 로그인 정보와 세션 데이터가 네트워크에서 암호화되도록 해야 한다.</p>
+<hr>
+<h2 id="155-세션-쿠키-보안-설정">15.5 세션 쿠키 보안 설정</h2>
+<p>현재는 Flask의 기본 세션 설정을 사용한다.</p>
+<p>운영환경에서는 다음 속성을 명시적으로 설정할 필요가 있다.</p>
+<ul>
+<li><code>SESSION_COOKIE_SECURE</code></li>
+<li><code>SESSION_COOKIE_HTTPONLY</code></li>
+<li><code>SESSION_COOKIE_SAMESITE</code></li>
+</ul>
+<hr>
+<h2 id="156-관리자-감사-로그-미적용">15.6 관리자 감사 로그 미적용</h2>
+<p>사용자 정지, 상품 차단, 신고 처리 등의 관리자 작업을 별도의 감사 로그 테이블에 저장하지 않는다.</p>
+<p>향후 관리자 ID, 수행 작업, 대상 ID, 처리 시간 등을 기록하는 기능이 필요하다.</p>
+<hr>
+<h2 id="157-동시-송금-경쟁-상태">15.7 동시 송금 경쟁 상태</h2>
+<p>현재 송금 과정은 하나의 <code>commit()</code>과 오류 발생 시 <code>rollback()</code> 구조로 처리한다.</p>
+<p>그러나 동일한 사용자가 여러 송금 요청을 동시에 보내는 상황은 별도로 검증하지 않았다.</p>
+<p>실제 운영환경에서는 데이터베이스 잠금, 트랜잭션 격리 수준 조정, 원자적 조건부 갱신 등을 검토해야 한다.</p>
+<hr>
+<h2 id="158-운영용-서버-미적용">15.8 운영용 서버 미적용</h2>
+<p>현재 Flask 개발 서버를 사용한다.</p>
+<p>실제 배포 환경에서는 Gunicorn과 같은 WSGI 서버와 리버스 프록시를 사용해야 한다.</p>
+<hr>
+<h1 id="16-유지보수-및-개선-과정">16. 유지보수 및 개선 과정</h1>
+<h2 id="161-가상환경-생성-문제-해결">16.1 가상환경 생성 문제 해결</h2>
+<p>Ubuntu 환경에서 <code>python3 -m venv</code> 명령이 정상적으로 실행되지 않는 문제가 발생하였다.</p>
+<p>원인은 <code>python3.12-venv</code> 패키지가 설치되지 않았기 때문이었다.</p>
+<p>다음 명령을 이용하여 필요한 패키지를 설치하였다.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">sudo</span> apt install python3.12-venv
+</div></code></pre>
+<p>문제 해결 후 프로젝트 전용 가상환경을 생성하였으며, 설치된 패키지는 <code>requirements.txt</code>에 기록하였다.</p>
+<hr>
+<h2 id="162-비밀번호-평문-저장-위험-개선">16.2 비밀번호 평문 저장 위험 개선</h2>
+<p>비밀번호를 데이터베이스에 그대로 저장할 경우 데이터베이스 유출 시 실제 비밀번호가 노출될 수 있다.</p>
+<p>이를 개선하기 위해 Werkzeug의 비밀번호 해시 함수를 적용하였다.</p>
+<ul>
+<li>회원가입: <code>generate_password_hash()</code></li>
+<li>로그인: <code>check_password_hash()</code></li>
+</ul>
+<p>이를 통해 데이터베이스에 평문 비밀번호가 저장되지 않도록 하였다.</p>
+<hr>
+<h2 id="163-서버-측-입력값-검증-적용">16.3 서버 측 입력값 검증 적용</h2>
+<p>HTML 입력 요소의 제한만 사용하면 브라우저 검증을 우회할 수 있다.</p>
+<p>상품 가격, 소개글, 메시지, 신고 사유, 송금 금액 등의 입력값을 서버에서도 다시 검사하도록 수정하였다.</p>
+<p>이를 통해 직접 HTTP 요청을 보내더라도 비정상적인 값이 데이터베이스에 저장되는 위험을 줄였다.</p>
+<hr>
+<h2 id="164-타인의-상품-수정삭제-방지">16.4 타인의 상품 수정·삭제 방지</h2>
+<p>상품 수정 및 삭제 URL에는 상품 ID가 포함된다.</p>
+<p>사용자가 URL의 숫자를 변경하여 다른 사용자의 상품에 접근할 수 있으므로, 상품의 판매자 ID와 로그인 사용자 ID를 서버에서 비교하도록 구현하였다.</p>
+<p>관리자가 아닌 일반 사용자는 자신이 등록하지 않은 상품을 수정하거나 삭제할 수 없다.</p>
+<hr>
+<h2 id="165-메시지-발신자-위조-방지">16.5 메시지 발신자 위조 방지</h2>
+<p>메시지 발신자 ID를 사용자 요청값으로 받으면 다른 사용자의 ID를 지정하여 메시지를 위조할 수 있다.</p>
+<p>따라서 발신자 ID는 폼 데이터에서 받지 않고 로그인 세션에서 가져오도록 구현하였다.</p>
+<hr>
+<h2 id="166-중복-신고-및-자기-신고-방지">16.6 중복 신고 및 자기 신고 방지</h2>
+<p>같은 대상에 대한 반복 신고를 방지하기 위해 신고 저장 전에 기존 신고 여부를 조회하였다.</p>
+<p>또한 다음 신고를 차단하였다.</p>
+<ul>
+<li>자기 자신 신고</li>
+<li>자신이 등록한 상품 신고</li>
+<li>동일한 사용자 반복 신고</li>
+<li>동일한 상품 반복 신고</li>
+</ul>
+<hr>
+<h2 id="167-관리자-페이지-접근-제어">16.7 관리자 페이지 접근 제어</h2>
+<p>관리자 메뉴를 화면에서 숨기는 것만으로는 URL 직접 접근을 방지할 수 없다.</p>
+<p>관리자 관련 모든 요청에서 로그인 사용자와 관리자 권한을 서버에서 확인하도록 구현하였다.</p>
+<p>또한 관리자가 자신의 계정이나 다른 관리자 계정을 정지하지 못하도록 제한하였다.</p>
+<hr>
+<h2 id="168-포인트-송금-데이터-일관성-개선">16.8 포인트 송금 데이터 일관성 개선</h2>
+<p>송신자 차감, 수신자 증가, 거래 기록 저장을 하나의 <code>commit()</code>으로 처리하였다.</p>
+<p>예외 발생 시 <code>rollback()</code>을 수행하여 일부 처리만 반영되는 문제를 줄였다.</p>
+<hr>
+<h2 id="169-보안-공격-문자열-테스트">16.9 보안 공격 문자열 테스트</h2>
+<p>다음 문자열을 로그인, 검색, 소개글 입력 위치에서 직접 테스트하였다.</p>
+<pre class="hljs"><code><div>&#x27; OR 1=1 --
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert(1)<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<p>테스트 결과 로그인 우회, 전체 상품 노출, 스크립트 실행은 발생하지 않았다.</p>
+<hr>
+<h1 id="17-git-및-github-관리">17. Git 및 GitHub 관리</h1>
+<h2 id="171-버전-관리">17.1 버전 관리</h2>
+<p>프로젝트는 Git을 이용하여 버전 관리하였다.</p>
+<p>로컬 프로젝트 폴더에서 저장소를 초기화하고, 기본 브랜치를 <code>main</code>으로 설정하였다.</p>
+<p>프로젝트 소스코드와 문서를 하나의 커밋으로 저장한 뒤 GitHub 원격 저장소에 업로드하였다.</p>
+<hr>
+<h2 id="172-공개-저장소">17.2 공개 저장소</h2>
+<p>프로젝트의 GitHub 저장소는 다음과 같다.</p>
+<pre class="hljs"><code><div>https://github.com/0nlyu1/secure-secondhand-platform
+</div></code></pre>
+<p>저장소에는 다음 자료를 포함하였다.</p>
+<ul>
+<li>Flask 애플리케이션 소스코드</li>
+<li>데이터베이스 모델</li>
+<li>HTML 템플릿</li>
+<li>CSS 파일</li>
+<li>요구사항 분석 문서</li>
+<li>시스템 설계 문서</li>
+<li>보안 문서</li>
+<li>체크리스트</li>
+<li>테스트 결과</li>
+<li>유지보수 기록</li>
+<li>테스트 증거 화면</li>
+<li>README</li>
+</ul>
+<hr>
+<h2 id="173-공개-저장소-제외-항목">17.3 공개 저장소 제외 항목</h2>
+<p>개인정보와 불필요한 개발환경 파일이 공개되지 않도록 <code>.gitignore</code>를 적용하였다.</p>
+<p>다음 파일과 폴더는 GitHub에 업로드하지 않았다.</p>
+<ul>
+<li><code>.venv/</code></li>
+<li><code>__pycache__/</code></li>
+<li><code>instance/market.db</code></li>
+<li><code>.env</code></li>
+<li>Python 임시 파일</li>
+</ul>
+<p>SQLite 데이터베이스에는 테스트 사용자 정보와 해시된 비밀번호, 메시지, 신고, 송금 기록 등이 포함될 수 있으므로 저장소에서 제외하였다.</p>
+<hr>
+<h1 id="18-프로젝트-수행-결과">18. 프로젝트 수행 결과</h1>
+<p>본 프로젝트를 통해 요구사항 분석부터 설계, 구현, 테스트, 유지보수, GitHub 업로드까지 웹 애플리케이션 개발의 전체 과정을 경험하였다.</p>
+<p>구현한 주요 기능은 다음과 같다.</p>
+<ul>
+<li>회원가입 및 로그인</li>
+<li>세션 기반 인증</li>
+<li>마이페이지와 소개글 수정</li>
+<li>상품 등록·조회·수정·삭제</li>
+<li>상품 검색</li>
+<li>사용자 간 1대1 메시지</li>
+<li>사용자 및 상품 신고</li>
+<li>관리자 사용자 정지</li>
+<li>관리자 상품 차단</li>
+<li>신고 처리</li>
+<li>사용자 간 가상 포인트 송금</li>
+<li>송금 내역 조회</li>
+</ul>
+<p>보안 측면에서는 다음 내용을 적용하였다.</p>
+<ul>
+<li>비밀번호 해시 저장</li>
+<li>사용자 입력값 서버 검증</li>
+<li>상품 소유권 검증</li>
+<li>관리자 권한 검사</li>
+<li>SQLAlchemy ORM 사용</li>
+<li>Jinja2 자동 이스케이프 사용</li>
+<li>메시지 발신자 위조 방지</li>
+<li>중복 신고 차단</li>
+<li>포인트 송금 트랜잭션 처리</li>
+</ul>
+<p>실제 공격 문자열을 입력한 SQL Injection 및 저장형 XSS 테스트에서도 기본적인 방어 기능이 정상 작동하는 것을 확인하였다.</p>
+<hr>
+<h1 id="19-결론">19. 결론</h1>
+<p>Tiny Second-hand Shopping Platform은 Flask와 SQLite를 이용하여 구현한 교육용 소규모 중고거래 웹 플랫폼이다.</p>
+<p>프로젝트를 진행하면서 단순히 화면과 기능을 만드는 것뿐 아니라, 사용자의 입력을 신뢰하지 않고 서버에서 검증하는 것이 중요하다는 점을 확인하였다.</p>
+<p>특히 비밀번호 평문 저장, 타인의 상품 수정, 관리자 URL 직접 접근, 메시지 발신자 위조, 중복 신고, 잘못된 포인트 송금과 같은 문제를 구현 과정에서 점검하고 개선하였다.</p>
+<p>SQLAlchemy ORM을 사용하여 사용자 입력을 SQL 문자열에 직접 결합하지 않았으며, 실제 SQL Injection 문자열을 입력한 결과 인증 우회나 전체 데이터 노출이 발생하지 않았다.</p>
+<p>또한 Jinja2 자동 이스케이프를 사용하고 저장형 XSS 문자열을 소개글에 저장하여 테스트한 결과, 스크립트가 실행되지 않고 텍스트로 표시되는 것을 확인하였다.</p>
+<p>현재 버전은 과제에서 요구한 핵심 기능과 기본 보안 요구사항을 충족한다.</p>
+<p>다만 CSRF 토큰, HTTPS, 로그인 시도 제한, 환경변수를 이용한 비밀키 관리, 관리자 감사 로그, 세션 쿠키 보안 설정, 동시 송금 경쟁 상태 대응 등은 아직 적용되지 않았다.</p>
+<p>향후 이러한 항목을 추가하면 실제 운영환경에 더 적합한 안전한 웹 서비스로 개선할 수 있다.</p>
+
+</body>
+</html>
